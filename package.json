@@ -1,0 +1,20 @@
+{
+    "name": "crawler",
+    "version": "1.0.0",
+    "description": "Monorepo for Crawl-o-matic 9000",
+    "scripts": {
+        "setup": "npm i && npm i --prefix crawler && npm i --prefix manager",
+        "start": "npm run start --prefix crawler & npm run start --prefix manager",
+        "start-watch": "npm run watch --prefix crawler & npm run watch --prefix manager",
+        "test": "npm run test --prefix crawler && npm run test --prefix manager",
+        "lint": "npm run lint --prefix crawler & npm run lint --prefix manager"
+    },
+    "pre-commit": [
+        "test"
+    ],
+    "author": "Will Jenkins",
+    "license": "ISC",
+    "devDependencies": {
+        "pre-commit": "^1.2.2"
+    }
+}
