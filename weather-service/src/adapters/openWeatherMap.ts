@@ -1,20 +1,45 @@
 import axios from 'axios'
-import { IForecastProvider, OpenWeatherMapResponse } from '../../../types'
+import config from '../config'
 
-const API_ENDPOINT = 'https://api.openweathermap.org/data/2.5/onecall'
-const OPEN_WEATHER_MAP_API_KEY = '44d972716a576f33e58ba3112e9a3cdd'
+import {
+    Forecast,
+    IForecastProvider,
+    OpenWeatherMapResponse,
+} from '../../../@weather/types'
+
+const { OPEN_WEATHER_MAP_API_ENDPOINT, OPEN_WEATHER_MAP_API_KEY } = config
+
+if (!OPEN_WEATHER_MAP_API_KEY || OPEN_WEATHER_MAP_API_KEY.length === 0)
+    throw new Error('OPEN_WEATHER_MAP_API_KEY is not defined')
 
 const apiClient = axios.create({
-    baseURL: API_ENDPOINT,
     responseType: 'json',
 })
 
+const extractDailyForecasts = ({
+    daily,
+    lat,
+    lon,
+}: OpenWeatherMapResponse): Forecast[] =>
+    daily.map((dailyForecast) => {
+        const { dt, temp, rain, weather, humidity } = dailyForecast
+        const iconUrl = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`
+
+        return {
+            lat,
+            lon,
+            date: new Date(dt * 1000),
+            tempCelsius: { dayTemp: temp.day, maxTemp: temp.max },
+            rainMM: rain,
+            humidity,
+            description: weather[0].description,
+            iconUrl,
+        }
+    })
+
 export const openWeatherMapAdapter: IForecastProvider = {
-    getForecast: async (
-        lat: number,
-        lon: number
-    ): Promise<OpenWeatherMapResponse> => {
-        const url = new URL(API_ENDPOINT)
+    getForecast: async ({ lat, lon }): Promise<Forecast[]> => {
+        const url = new URL(OPEN_WEATHER_MAP_API_ENDPOINT)
         const searchParams = {
             lat: lat.toString(),
             lon: lon.toString(),
@@ -23,8 +48,10 @@ export const openWeatherMapAdapter: IForecastProvider = {
             units: 'metric',
         }
         url.search = new URLSearchParams(searchParams).toString()
+
+        // todo: error handling
         const response = await apiClient.get<OpenWeatherMapResponse>(url.href)
         const data = response.data
-        return data
+        return extractDailyForecasts(data)
     },
 }
