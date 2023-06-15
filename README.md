@@ -1,15 +1,14 @@
-# Crawl-o-matic 9000
-
-## Requirements
-
-The projects require Node version >= 16.14.0
+# Forecast-o-matic 9000
 
 ## Setup and Start
 
-1. In the root run `npm run setup` - this will run `npm install` in the two sub-projects.
+1. Edit `.env` to add a valid OpenWeatherMap API key.
 
-2. In the root run `npm start` - this will start both the services.
+2. In the root run `npm run setup` - this should run `npm install` in the root and then in two sub-projects.
 
-3. Start a crawl by visiting `http://localhost:8081/start-crawl?url=<your url here>`
+3. In the root run `npm start` - this should start the `weather-service` and the `web-app`.
 
-4. View crawl results by visiting `http://localhost:8081/crawl-status?url=<your url here>` (This is a nice [Chrome extension](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa) for json formatting if you need one)
+## Notes
+
+-   Only a few tests have been added, specifically around the specifications for how to categorise different day types etc
+-   There are common types in the the root of the app that ideally would exist as a separate package. I tried to mock that arrangement by putting them in the root and accessing them from both sub-projects but CRA prevents any imports from outside of `/src` so I had to copy them manually into the web-app project.
