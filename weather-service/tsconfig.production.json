@@ -1,16 +1,12 @@
 {
-  "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
-    "outDir": "./dist",
-    "resolveJsonModule": true,
-    "strict": true,
-    "esModuleInterop": true,
-    "inlineSourceMap": true
-  },
-  "include": [
-    "index.ts",
-    "common/**/*",
-    "src/**/*",
-  ]
+    "compilerOptions": {
+        "target": "es2016",
+        "module": "commonjs",
+        "outDir": "./dist",
+        "resolveJsonModule": true,
+        "strict": true,
+        "esModuleInterop": true,
+        "inlineSourceMap": true
+    },
+    "include": ["index.ts", "common/**/*", "src/**/*"]
 }

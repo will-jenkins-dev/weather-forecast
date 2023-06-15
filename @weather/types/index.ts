@@ -1,7 +1,3 @@
-const assetType = ['links', 'images', 'forms', 'video', 'audio'] as const
-export type AssetType = (typeof assetType)[number]
-export type PageAssets = { [K in AssetType]?: string[] }
-
 export type DailyForecast = {
     dt: number
     sunrise: number
@@ -40,6 +36,7 @@ export type DailyForecast = {
     clouds: number
     pop: number
     uvi: number
+    rain: number
 }
 
 export type OpenWeatherMapResponse = {
@@ -50,6 +47,30 @@ export type OpenWeatherMapResponse = {
     daily: DailyForecast[]
 }
 
+export type LatLon = {
+    lat: number
+    lon: number
+}
+
+export enum DayCategory {
+    Nicest = 'nicest',
+    WorstTemp = 'worstTemp',
+    WorstRain = 'worstRain',
+}
+
+export type Forecast = LatLon & {
+    date: Date
+    tempCelsius: { dayTemp: number; maxTemp: number }
+    rainMM: number
+    humidity: number
+    description: string
+    iconUrl: string
+}
+
+export type CategorisedForecast = Forecast & {
+    dayCategories: DayCategory[]
+}
+
 export interface IForecastProvider {
-    getForecast: (lat: number, lon: number) => Promise<OpenWeatherMapResponse>
+    getForecast: (latLon: LatLon) => Promise<Forecast[]>
 }

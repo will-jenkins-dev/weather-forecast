@@ -1,13 +1,17 @@
 {
-    "name": "crawler",
+    "name": "weather-forecast",
     "version": "1.0.0",
-    "description": "Monorepo for Crawl-o-matic 9000",
+    "description": "Monorepo for Forecast-O-Matic 9000",
     "scripts": {
-        "setup": "npm i && npm i --prefix crawler && npm i --prefix manager",
-        "start": "npm run start --prefix crawler & npm run start --prefix manager",
-        "start-watch": "npm run watch --prefix crawler & npm run watch --prefix manager",
-        "test": "npm run test --prefix crawler && npm run test --prefix manager",
-        "lint": "npm run lint --prefix crawler & npm run lint --prefix manager"
+        "setup:server": "npm i --prefix weather-service",
+        "setup:web-app": "npm i --prefix web-app",
+        "start:server": "npm run start --prefix weather-service",
+        "start:web-app": "npm run start --prefix web-app",
+        "test:server": "npm run test --prefix weather-service",
+        "test:web-app": "npm run test:nowatch --prefix web-app",
+        "setup": "npm i && npm-run-all --parallel setup:server setup:web-app",
+        "start": "npm-run-all --parallel start:server start:web-app",
+        "test": "npm-run-all --parallel test:server test:web-app"
     },
     "pre-commit": [
         "test"
@@ -15,6 +19,7 @@
     "author": "Will Jenkins",
     "license": "ISC",
     "devDependencies": {
+        "npm-run-all": "^4.1.5",
         "pre-commit": "^1.2.2"
     }
 }

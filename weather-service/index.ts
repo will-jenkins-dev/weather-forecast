@@ -4,7 +4,7 @@ import * as logger from './src/utils/logger'
 
 const { PORT, HOST, SERVICE_NAME, SERVICE_VERSION } = config
 
-app.listen(PORT as number, HOST as string)
+app.listen(Number(PORT), HOST)
 logger.log(
     `${SERVICE_NAME} (${SERVICE_VERSION}) is running on http://${HOST}:${PORT}`
 )

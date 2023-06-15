@@ -4,39 +4,44 @@
     "description": "Backend service to provide weather forecast data",
     "main": "index.ts",
     "scripts": {
-        "start": "rm -rf dist && tsc && nodemon -r dotenv/config ./dist/manager/index.js",
-        "watch": "tsc-watch --noClear -p ./tsconfig.json --onSuccess \"nodemon -r dotenv/config ./dist/manager/index.js\"",
-        "test": "rm -rf dist && npm run lint && tsc && jest --silent",
-        "test-watch": "rm -rf dist && tsc-watch --noClear -p ./tsconfig.json --onSuccess \"jest --silent\"",
+        "start": "shx rm -rf dist && tsc && nodemon -r dotenv/config ./dist/weather-service/index.js",
+        "watch": "tsc-watch --noClear -p ./tsconfig.json --onSuccess \"nodemon -r dotenv/config ./dist/weather-service/index.js\"",
+        "test": "shx rm -rf dist && npm run lint && tsc && jest --silent",
+        "test-watch": "shx rm -rf dist && tsc-watch --noClear -p ./tsconfig.json --onSuccess \"jest\"",
         "types": "rm -rf dist && tsc",
         "lint": "eslint . --ext .ts"
     },
     "keywords": [],
-    "author": "Rnwl",
+    "author": "Will Jenkins",
     "license": "ISC",
-    "homepage": "https://github.com/Rnwl/service-backend-sharing#readme",
+    "homepage": "",
     "dependencies": {
-        "axios": "^0.21.4",
-        "express": "4.17.1"
+        "axios": "^1.4.0",
+        "cors": "^2.8.5",
+        "date-fns": "^2.30.0",
+        "express": "4.18.2",
+        "weather-forecast": "file:.."
     },
     "devDependencies": {
-        "@types/express": "4.17.13",
-        "@types/jest": "27.0.1",
-        "@types/node": "^16.0.0",
-        "@typescript-eslint/eslint-plugin": "4.30.0",
-        "@typescript-eslint/parser": "4.30.0",
-        "dotenv": "10.0.0",
-        "eslint": "7.32.0",
-        "eslint-config-prettier": "8.3.0",
-        "eslint-plugin-jest": "24.4.0",
-        "eslint-plugin-prettier": "4.0.0",
-        "jest": "27.1.0",
-        "nodemon": "2.0.12",
-        "prettier": "2.3.2",
-        "ts-jest": "27.1.3",
-        "ts-node": "10.5.0",
-        "tsc-watch": "4.5.0",
-        "typescript": "4.4.2"
+        "@types/cors": "^2.8.13",
+        "@types/express": "4.17.17",
+        "@types/jest": "29.5.2",
+        "@types/node": "^20.2.5",
+        "@typescript-eslint/eslint-plugin": "5.59.9",
+        "@typescript-eslint/parser": "5.59.9",
+        "dotenv": "16.1.4",
+        "eslint": "8.42.0",
+        "eslint-config-prettier": "8.8.0",
+        "eslint-plugin-jest": "27.2.1",
+        "eslint-plugin-prettier": "4.2.1",
+        "jest": "29.5.0",
+        "nodemon": "2.0.22",
+        "prettier": "2.8.8",
+        "shx": "^0.3.4",
+        "ts-jest": "29.1.0",
+        "ts-node": "10.9.1",
+        "tsc-watch": "6.0.4",
+        "typescript": "5.1.3"
     },
     "engines": {
         "npm": ">=8.0.0",
@@ -48,7 +53,7 @@
         "testEnvironment": "node",
         "testRegex": ".*\\.test\\.ts$",
         "roots": [
-            "src"
+            "test"
         ]
     }
 }
