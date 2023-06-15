@@ -1,9 +1,9 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import React from 'react'
+import { render, screen } from '@testing-library/react'
+import App from './App'
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+test('renders', async () => {
+    render(<App />)
+    const titleElement = await screen.findByText(/Daily\/Weekly Forecast for/i)
+    expect(titleElement).toBeInTheDocument()
+})
